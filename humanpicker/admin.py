@@ -5,10 +5,13 @@ from maandagseries.humanpicker.models import Event, Human, Furniture
 
 class EventAdmin(admin.ModelAdmin):
 	list_display = ('date', 'places', 'open')
+	list_filter = ('open', 'places')
 	ordering = ('date', )
+	date_hierarchy = 'date'
 
 class HumanAdmin(admin.ModelAdmin):
 	list_display = ('name', 'event', 'accepted', 'is_creative', 'subscribed_at', 'subscribed_by')
+	list_filter = ('accepted', 'is_creative', 'name', 'event')
 	ordering = ('event', 'subscribed_at')
 	actions = ['accept', 'unaccept']
 
