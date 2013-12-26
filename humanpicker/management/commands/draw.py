@@ -25,7 +25,7 @@ class Command(BaseCommand):
 		if len(args) != 0:
 			raise CommandError("Usage: draw %s" % self.args)
 		for ev in Event.objects.filter(open=True):
-			already_accepted = list(Human.objects.filter(event=ev, accepted=True))
+			already_accepted = map(lambda x: x.name, Human.objects.filter(event=ev, accepted=True))
 			places = ev.places - len(already_accepted)
 			if places <= 0:
 				continue
@@ -45,6 +45,10 @@ class Command(BaseCommand):
 				del scores[hid]
 				places -= 1
 				new_names.append(humans[hid].name)
+			if places == 0 and ev.chef is None:
+				chefs = Human.objects.filter(event=ev, accepted=True, is_creative=True)
+				ev.chef = random.choice(chefs).name
+				ev.save()
 
 			msg = ""
 			if len(new_names) == 1:
@@ -54,15 +58,19 @@ class Command(BaseCommand):
 				msg += "%s en %s zijn ingeloot" % (", ".join(new_names), last)
 
 			if len(already_accepted) == 1:
-				msg += " (naast %s)" % already_accepted[0].name
+				msg += " (naast %s)" % already_accepted[0]
 			elif len(already_accepted) > 1:
-				last = already_accepted.pop().name
-				msg += " (naast %s en %s)" % (", ".join(map(lambda x: x.name, already_accepted)), last)
+				last = already_accepted.pop()
+				msg += " (naast %s en %s)" % (", ".join(already_accepted), last)
 
 			if places == 1:
 				msg += "\n\nEr is nog een plek. Meld je snel aan op:\nhttp://maandagseries.quis.cx"+ ev.get_absolute_url()
 			elif places > 1:
 				msg += "\n\nEr zijn nog %d plaatsen. Meld je snel aan op:\nhttp://maandagseries.quis.cx%s" % (places, ev.get_absolute_url())
+
+			if not ev.chef is None:
+				msg += "\n\n%s mag een gerecht verzinnen." % ev.chef
+
 			headers = {'In-Reply-To': "%s@maandagseries.quis.cx" % ev.getKey(), 'References': "%s@maandagseries.quis.cx" % ev.getKey()}
 			email = EmailMessage('Re: %s' % ev.date.strftime('%e %b'), msg, 'maandagseries@karpenoktem.nl', ['jille@karpenoktem.nl'], headers=headers)
 			email.send()

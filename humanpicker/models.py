@@ -8,6 +8,7 @@ class Event(models.Model):
 	date = models.DateField(unique=True)
 	places = models.PositiveSmallIntegerField()
 	open = models.BooleanField(default=False)
+	chef = models.CharField("CHEF", max_length=32, blank=True, null=True)
 
 	def getKey(self):
 		return hashlib.md5("%s-%s" % (self.date, settings.SECRET_KEY)).hexdigest()
