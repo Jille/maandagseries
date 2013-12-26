@@ -12,4 +12,4 @@ def parse_date(date):
 		return datetime.date.fromordinal(datetime.date.today().toordinal()+1)
 	elif date == 'nextweek':
 		return datetime.date.fromordinal(datetime.date.today().toordinal()+7)
-	return parse(date).date()
+	return parse(date)
