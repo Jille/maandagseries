@@ -1,10 +1,10 @@
 # Django settings for maandagseries project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Jille Timmermans', 'jille@karpenoktem.nl'),
 )
 
 MANAGERS = ADMINS
@@ -31,11 +31,11 @@ ALLOWED_HOSTS = []
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Amsterdam'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'nl-NL'
 
 SITE_ID = 1
 
@@ -87,7 +87,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'xsw46y8r#_f53b+u!+0gz8p(ylzqh^7+j#ig584##11qe95@sv'
+# SECRET_KEY = 'XXX'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -116,13 +116,14 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+		'maandagseries.humanpicker',
 )
 
 # A sample logging configuration. The only tangible logging
