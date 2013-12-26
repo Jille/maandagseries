@@ -6,7 +6,7 @@ from maandagseries import settings
 
 class Event(models.Model):
 	date = models.DateField(unique=True)
-	places = models.PositiveSmallIntegerField(default=6)
+	places = models.PositiveSmallIntegerField()
 	open = models.BooleanField(default=False)
 
 	def getKey(self):
@@ -32,3 +32,10 @@ class Human(models.Model):
 
 	class Meta:
 		unique_together = (('event', 'name'), )
+
+class Furniture(models.Model):
+	name = models.CharField("naam", max_length=32)
+	is_creative = models.BooleanField("Wil een gerecht verzinnen")
+
+	def __unicode__(self):
+		return self.name

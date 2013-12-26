@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 
-from maandagseries.humanpicker.models import Event, Human
+from maandagseries.humanpicker.models import Event, Human, Furniture
 
 class EventAdmin(admin.ModelAdmin):
 	list_display = ('date', 'places', 'open')
@@ -20,6 +20,11 @@ class HumanAdmin(admin.ModelAdmin):
 		queryset.update(accepted=False)
 	unaccept.short_description = 'Unaccept selected humans'
 
+class FurnitureAdmin(admin.ModelAdmin):
+	list_display = ('name', 'is_creative')
+	ordering = ('name',)
+
 admin.site.register(Event, EventAdmin)
 admin.site.register(Human, HumanAdmin)
+admin.site.register(Furniture, FurnitureAdmin)
 admin.site.unregister(Group)
