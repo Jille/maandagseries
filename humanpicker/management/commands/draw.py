@@ -72,5 +72,5 @@ class Command(BaseCommand):
 				msg += "\n\n%s mag een gerecht verzinnen." % ev.chef
 
 			headers = {'In-Reply-To': "%s@maandagseries.quis.cx" % ev.getKey(), 'References': "%s@maandagseries.quis.cx" % ev.getKey()}
-			email = EmailMessage('Re: %s' % ev.date.strftime('%e %b'), msg, 'maandagseries@karpenoktem.nl', ['jille@karpenoktem.nl'], headers=headers)
+			email = EmailMessage('Re: %s' % ev.date.strftime('%e %b'), msg, 'maandagseries@karpenoktem.nl', ['maandagseries@karpenoktem.nl'], headers=headers)
 			email.send()

@@ -17,5 +17,5 @@ class Command(BaseCommand):
 		if ev.places > 0:
 			msg = "Er zijn %d plaatsen. Meld je snel aan op:\nhttp://maandagseries.quis.cx%s" % (ev.places, ev.get_absolute_url())
 			headers = {'Message-Id': "%s@maandagseries.quis.cx" % ev.getKey()}
-			email = EmailMessage('%s' % ev.date.strftime('%e %b'), msg, 'maandagseries@karpenoktem.nl', ['jille@karpenoktem.nl'], headers=headers)
+			email = EmailMessage('%s' % ev.date.strftime('%e %b'), msg, 'maandagseries@karpenoktem.nl', ['maandagseries@karpenoktem.nl'], headers=headers)
 			email.send()
