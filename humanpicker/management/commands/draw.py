@@ -36,7 +36,7 @@ class Command(BaseCommand):
 			for hid, human in humans.items():
 				scores[hid] = 100
 				if human.is_creative:
-					scores[hid] += 10
+					scores[hid] += 25
 			new_names = []
 			while places > 0 and len(scores) > 0:
 				hid = pick_one_from_scores(scores)
