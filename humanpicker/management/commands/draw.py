@@ -25,11 +25,11 @@ class Command(BaseCommand):
 		if len(args) != 0:
 			raise CommandError("Usage: draw %s" % self.args)
 		for ev in Event.objects.filter(open=True):
-			already_accepted = map(lambda x: x.name, Human.objects.filter(event=ev, accepted=True))
+			already_accepted = map(lambda x: x.name, Human.objects.filter(event=ev, accepted=True, revoked=False))
 			places = ev.places - len(already_accepted)
 			if places <= 0:
 				continue
-			humans = dict((x.id, x) for x in (Human.objects.filter(event=ev, accepted=False)))
+			humans = dict((x.id, x) for x in (Human.objects.filter(event=ev, accepted=False, revoked=False)))
 			if len(humans) == 0:
 				continue
 			scores = {}
@@ -46,11 +46,11 @@ class Command(BaseCommand):
 				places -= 1
 				new_names.append(humans[hid].name)
 			if places == 0 and ev.chef is None:
-				chefs = Human.objects.filter(event=ev, accepted=True, is_creative=True)
+				chefs = Human.objects.filter(event=ev, accepted=True, revoked=False, is_creative=False)
 				ev.chef = random.choice(chefs).name
 				ev.save()
 			if places == 0 and ev.souschef is None:
-				souschefs = Human.objects.filter(event=ev, accepted=True).exclude(name=ev.chef)
+				souschefs = Human.objects.filter(event=ev, accepted=True, revoked=False).exclude(name=ev.chef)
 				ev.souschef = random.choice(souschefs).name
 				ev.save()
 

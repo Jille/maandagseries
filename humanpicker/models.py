@@ -28,6 +28,7 @@ class Human(models.Model):
 	subscribed_by = models.IPAddressField()
 	is_creative = models.BooleanField("Wil een gerecht verzinnen")
 	accepted = models.BooleanField("Mag komen")
+	revoked = models.BooleanField("Is stom")
 
 	def __unicode__(self):
 		return "%s op %s" % (self.name, self.event)

@@ -10,10 +10,10 @@ class EventAdmin(admin.ModelAdmin):
 	date_hierarchy = 'date'
 
 class HumanAdmin(admin.ModelAdmin):
-	list_display = ('name', 'event', 'accepted', 'is_creative', 'subscribed_at', 'subscribed_by')
-	list_filter = ('accepted', 'is_creative', 'name', 'event')
+	list_display = ('name', 'event', 'accepted', 'revoked', 'is_creative', 'subscribed_at', 'subscribed_by')
+	list_filter = ('accepted', 'revoked', 'is_creative', 'name', 'event')
 	ordering = ('event', 'subscribed_at')
-	actions = ['accept', 'unaccept']
+	actions = ['accept', 'unaccept', 'revoke', 'unrevoke']
 
 	def accept(self, request, queryset):
 		queryset.update(accepted=True)
@@ -22,6 +22,14 @@ class HumanAdmin(admin.ModelAdmin):
 	def unaccept(self, request, queryset):
 		queryset.update(accepted=False)
 	unaccept.short_description = 'Unaccept selected humans'
+
+	def revoke(self, request, queryset):
+		queryset.update(revoked=True)
+	revoke.short_description = 'Revoke selected humans'
+
+	def unrevoke(self, request, queryset):
+		queryset.update(revoked=False)
+	unrevoke.short_description = 'Unrevoke selected humans'
 
 class FurnitureAdmin(admin.ModelAdmin):
 	list_display = ('name', 'is_creative')
