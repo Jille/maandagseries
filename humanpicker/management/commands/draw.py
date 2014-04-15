@@ -49,6 +49,10 @@ class Command(BaseCommand):
 				chefs = Human.objects.filter(event=ev, accepted=True, is_creative=True)
 				ev.chef = random.choice(chefs).name
 				ev.save()
+			if places == 0 and ev.souschef is None:
+				souschefs = Human.objects.filter(event=ev, accepted=True).exclude(name=ev.chef)
+				ev.souschef = random.choice(souschefs).name
+				ev.save()
 
 			msg = ""
 			if len(new_names) == 1:
@@ -70,6 +74,8 @@ class Command(BaseCommand):
 
 			if not ev.chef is None:
 				msg += "\n\n%s mag een gerecht verzinnen." % ev.chef
+				if not ev.souschef is None:
+					msg += " %s mag helpen met boodschappen doen." % ev.souschef
 
 			headers = {'In-Reply-To': "%s@maandagseries.quis.cx" % ev.getKey(), 'References': "%s@maandagseries.quis.cx" % ev.getKey()}
 			email = EmailMessage('Re: %s' % ev.date.strftime('%e %b'), msg, 'maandagseries@karpenoktem.nl', ['maandagseries@karpenoktem.nl'], headers=headers)

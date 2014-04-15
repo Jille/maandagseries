@@ -4,8 +4,8 @@ from django.contrib.auth.models import Group
 from maandagseries.humanpicker.models import Event, Human, Furniture
 
 class EventAdmin(admin.ModelAdmin):
-	list_display = ('date', 'places', 'open', 'chef')
-	list_filter = ('open', 'places', 'chef')
+	list_display = ('date', 'places', 'open', 'chef', 'souschef')
+	list_filter = ('open', 'places', 'chef', 'souschef')
 	ordering = ('date', )
 	date_hierarchy = 'date'
 
