@@ -77,6 +77,6 @@ class Command(BaseCommand):
 				if not ev.souschef is None:
 					msg += " %s mag helpen met boodschappen doen." % ev.souschef
 
-			headers = {'In-Reply-To': "%s@maandagseries.quis.cx" % ev.getKey(), 'References': "%s@maandagseries.quis.cx" % ev.getKey()}
+			headers = {'In-Reply-To': "<%s@maandagseries.quis.cx>" % ev.getKey(), 'References': "<%s@maandagseries.quis.cx>" % ev.getKey()}
 			email = EmailMessage('Re: %s' % ev.date.strftime('%e %b'), msg, 'maandagseries@karpenoktem.nl', ['maandagseries@karpenoktem.nl'], headers=headers)
 			email.send()
